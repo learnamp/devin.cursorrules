@@ -1,8 +1,8 @@
 # Instructions
 
-During you interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in the `Lessons` section in the `.cursorrules` file so you will not make the same mistake again. 
+During you interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in the `Lessons` section in the `.cursorrules` file so you will not make the same mistake again.
 
-You should also use the `.cursorrules` file as a scratchpad to organize your thoughts. Especially when you receive a new task, you should first review the content of the scratchpad, clear old different task if necessary, first explain the task, and plan the steps you need to take to complete the task. You can use todo markers to indicate the progress, e.g.
+You should also use the `SCRATCHPAD.md` file as a scratchpad to organize your thoughts. Especially when you receive a new task, you should first review the content of the scratchpad, clear old different task if necessary, first explain the task, and plan the steps you need to take to complete the task. You can use todo markers to indicate the progress, e.g.
 [X] Task 1
 [ ] Task 2
 
@@ -91,6 +91,16 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Include info useful for debugging in the program output.
 - Read the file before you try to edit it.
 - Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
+- When making changes to a test file, run the individual test file (e.g. `rails test test/models/bulk_item_import_test.rb`) after each change to verify the changes work.
+- In tests, avoid using `index.zero?` with array indexing. Instead use explicit methods like `find_by(attribute: value)` to make tests more readable and maintainable.
+- When creating PRs with `gh pr`, always choose `learnamp/learnamp`, NEVER create a fork.
+- PR titles should start with the JIRA ticket number in the format `[LA-XXXXX]`, not `[Cursor]`.
+- Never run `rubocop -a` on the whole file, fix RuboCop warnings manually to maintain control over changes.
+- Never refactor code unless explicitly requested to do so.
+- Keep changes minimal and focused - only modify relevant lines and never touch unrelated files or code.
+- In tests, keep blank lines between logical groups of assertions but remove unnecessary blank lines between related assertions within the same group.
+- Always execute git commands inside the project directory to ensure proper context and hooks are applied.
+- Always use `SCRATCHPAD.md` for task planning and progress tracking, never put scratchpad content in `.cursorrules`.
 
 ## Cursor learned
 
@@ -98,5 +108,3 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
 - When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
 - Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
-
-# Scratchpad
