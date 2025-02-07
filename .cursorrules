@@ -1,6 +1,6 @@
 # Instructions
 
-During you interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in their respective wisdom file in the `wisdoms/` directory. Only add lessons to the `Lessons` section in this file if explicitly instructed to do so.
+During you interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in their respective wisdom file in the `wisdoms/` directory. The wisdom files should be named after the developer's username (e.g. `wisdoms/tejanium.md` for user tejanium). Only add lessons to the `Lessons` section in this file if explicitly instructed to do so.
 
 You should also use the `SCRATCHPAD.md` file as a scratchpad to organize your thoughts. Especially when you receive a new task, you should first review the content of the scratchpad, clear old different task if necessary, first explain the task, and plan the steps you need to take to complete the task. You can use todo markers to indicate the progress, e.g.
 [X] Task 1
