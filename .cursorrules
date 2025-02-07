@@ -10,7 +10,7 @@ Also update the progress of the task in the Scratchpad when you finish a subtask
 Especially when you finished a milestone, it will help to improve your depth of task accomplishment to use the scratchpad to reflect and plan.
 The goal is to help you maintain a big picture as well as the progress of the task. Always refer to the Scratchpad when you plan the next step.
 
-Before executing any task, you MUST read all the wisdom files in the `wisdoms/` directory to understand each developer's preferences and lessons learned. This ensures you follow everyone's guidelines and maintain consistency across the codebase.
+Before executing any task, you MUST read all the wisdom files in the `wisdoms/` directory to understand each developer's preferences and lessons learned. This ensures you follow everyone's guidelines and maintain consistency across the codebase. If you find conflicting lessons between different wisdom files, flag it and bring it to the user's attention for clarification.
 
 # Tools
 
