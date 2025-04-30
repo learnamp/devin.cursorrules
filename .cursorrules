@@ -1,102 +1,151 @@
-# Instructions
+# CRITICAL INSTRUCTIONS FOR AI ASSISTANTS - FOLLOW WITHOUT EXCEPTION
 
-During you interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in their respective wisdom file in the `wisdoms/` directory. The wisdom files should be named after the developer's username (e.g. `wisdoms/tejanium.md` for user tejanium). Only add lessons to the `Lessons` section in this file if explicitly instructed to do so.
+1. ALWAYS read ALL wisdom files in `wisdoms/` directory BEFORE starting ANY task. This is non-negotiable and must be done completely, not partially. These files contain critical context for how to approach tasks in this codebase.
+   - SUCCESS CRITERIA: You should be able to reference specific rules from wisdom files when explaining your approach
+   - FAILURE INDICATOR: If you make a decision that contradicts a rule in a wisdom file
 
-You should also use the `SCRATCHPAD.md` file as a scratchpad to organize your thoughts. Especially when you receive a new task, you should first review the content of the scratchpad, clear old different task if necessary, first explain the task, and plan the steps you need to take to complete the task. You can use todo markers to indicate the progress, e.g.
-[X] Task 1
-[ ] Task 2
+2. ALWAYS use SCRATCHPAD.md at the start of EVERY task with the following complete structure:
+   - Begin with a clear task description and problem statement
+   - Create a detailed checklist of ALL applicable critical rules from wisdom files
+   - Plan your approach step-by-step with explicit reasoning
+   - Track progress as you complete steps, updating after each milestone
+   - Document any issues, decisions, and learnings with rationale
+   - SUCCESS CRITERIA: SCRATCHPAD.md contains all the elements listed above before you begin work
+   - FAILURE INDICATOR: Starting work without documenting your plan in SCRATCHPAD.md
 
-Also update the progress of the task in the Scratchpad when you finish a subtask.
-Especially when you finished a milestone, it will help to improve your depth of task accomplishment to use the scratchpad to reflect and plan.
-The goal is to help you maintain a big picture as well as the progress of the task. Always refer to the Scratchpad when you plan the next step.
+3. ALWAYS maintain wisdom files with lessons learned:
+   - Store in `wisdoms/<username>.md` with consistent formatting
+   - Document reusable knowledge in explicit, detailed format
+   - Include complete examples when adding new guidelines
+   - Only add to Lessons section when explicitly instructed
+   - When writing new wisdom content, optimize it for AI processing by using explicit instructions, complete examples, and clear context
+   - SUCCESS CRITERIA: New wisdom entries include detailed examples and explicit instructions
+   - FAILURE INDICATOR: Adding terse or ambiguous guidance without examples
 
-Before executing any task, you MUST read all the wisdom files in the `wisdoms/` directory to understand each developer's preferences and lessons learned. This ensures you follow everyone's guidelines and maintain consistency across the codebase. If you find conflicting lessons between different wisdom files, flag it and bring it to the user's attention for clarification.
+4. ALWAYS follow the critical rules in wisdom files WITHOUT EXCEPTION:
+   - Rules are not suggestions but mandatory requirements
+   - If rules appear to conflict, explicitly note the conflict and ask for clarification
+   - Do not improvise or deviate from established patterns without explicit permission
+   - SUCCESS CRITERIA: Your implementation follows ALL applicable rules from wisdom files
+   - FAILURE INDICATOR: Deviating from established patterns without explicit permission
 
-# Tools
+# CONFLICT RESOLUTION HIERARCHY - APPLY IN THIS ORDER
 
-Note all the tools are in python. So in the case you need to do batch processing, you can always consult the python files and write your own script.
+When rules appear to conflict, use this exact resolution process:
 
-## Screenshot Verification
-The screenshot verification workflow allows you to capture screenshots of web pages and verify their appearance using LLMs. The following tools are available:
+1. User's direct instructions in the current conversation override all other rules
+2. Rules in `wisdoms/tejanium.md` override rules in other wisdom files
+3. Rules marked as "PRIMARY DIRECTIVES" or "CRITICAL" override other rules
+4. More specific rules override more general rules
+5. Newer rules override older rules of the same type
+6. If still unclear, EXPLICITLY NOTE THE CONFLICT and ASK FOR CLARIFICATION
 
-1. Screenshot Capture:
+# STANDARD PROCESS WORKFLOWS - FOLLOW THESE EXACTLY
+
+## Starting a New Task
+1. Read ALL wisdom files completely (wisdoms/tejanium.md and others)
+2. Create a new section in SCRATCHPAD.md with task description
+3. List applicable rules from wisdom files in a checklist
+4. Plan your approach with step-by-step reasoning
+5. Only after completing steps 1-4, begin the actual task
+
+## Making Code Changes
+1. Read the complete file before modifying it
+2. Run RuboCop to check for style issues: `bundle exec rubocop path/to/file.rb`
+3. Make minimal, focused changes only to relevant lines
+4. Run tests to verify changes work: `rails test test/path/to/test.rb`
+5. Document what you did in SCRATCHPAD.md
+
+## Encountering Errors
+1. Document the exact error with context in SCRATCHPAD.md
+2. Check wisdom files for guidance on similar errors
+3. Propose a solution that follows established patterns
+4. Explain your reasoning explicitly
+5. Implement the solution and verify it works
+
+# Tools Reference - Complete Usage Guidelines
+
+All tools are Python-based in ./venv. Always use the full path to ensure proper execution:
+
+## LLM Access
+For querying language models with complete context:
 ```bash
-venv/bin/python tools/screenshot_utils.py URL [--output OUTPUT] [--width WIDTH] [--height HEIGHT]
+venv/bin/python ./tools/llm_api.py --prompt "Your detailed query here" --provider "anthropic"
 ```
 
-2. LLM Verification with Images:
-```bash
-venv/bin/python tools/llm_api.py --prompt "Your verification question" --provider {openai|anthropic} --image path/to/screenshot.png
-```
+Supported models with specific capabilities:
+- OpenAI (default, model: gpt-4o): Best for general-purpose tasks and vision
+- Azure OpenAI: Configured via AZURE_OPENAI_MODEL_DEPLOYMENT in .env file
+- DeepSeek (model: deepseek-chat): Alternative for complex reasoning tasks
+- Anthropic (model: claude-3-sonnet-20240229): Strong for safety and instructions
+- Gemini (model: gemini-pro): Good for creative tasks
+- Local LLM (model: Qwen/Qwen2.5-32B-Instruct-AWQ): For offline processing
 
-Example workflow:
-```python
-from screenshot_utils import take_screenshot_sync
-from llm_api import query_llm
+## Web Tools
+Complete reference for web interaction tools:
 
-# Take a screenshot
-screenshot_path = take_screenshot_sync('https://example.com', 'screenshot.png')
+- Screenshot capture with full options:
+  ```bash
+  venv/bin/python tools/screenshot_utils.py URL [--output OUTPUT] [--width WIDTH] [--height HEIGHT]
+  ```
 
-# Verify with LLM
-response = query_llm(
-    "What is the background color and title of this webpage?",
-    provider="openai",  # or "anthropic"
-    image_path=screenshot_path
-)
-print(response)
-```
+- Web scraping with parallel processing:
+  ```bash
+  venv/bin/python ./tools/web_scraper.py --max-concurrent 3 URL1 URL2 URL3
+  ```
 
-## LLM
+- Search engine with formatted results:
+  ```bash
+  venv/bin/python ./tools/search_engine.py "your detailed search terms"
+  ```
+  Returns structured data with URLs, titles, and snippets for further processing.
 
-You always have an LLM at your side to help you with the task. For simple tasks, you could invoke the LLM by running the following command:
-```
-venv/bin/python ./tools/llm_api.py --prompt "What is the capital of France?" --provider "anthropic"
-```
+# INTERPRETATION GUIDES - HOW TO APPLY GENERAL RULES TO SPECIFIC CASES
 
-The LLM API supports multiple providers:
-- OpenAI (default, model: gpt-4o)
-- Azure OpenAI (model: configured via AZURE_OPENAI_MODEL_DEPLOYMENT in .env file, defaults to gpt-4o-ms)
-- DeepSeek (model: deepseek-chat)
-- Anthropic (model: claude-3-sonnet-20240229)
-- Gemini (model: gemini-pro)
-- Local LLM (model: Qwen/Qwen2.5-32B-Instruct-AWQ)
+## Acting as a "Top Tier Senior Developer"
+- When given a task: First understand the context and implications before proposing solutions
+- When writing code: Prioritize maintainability and robustness over cleverness
+- When debugging: Look for root causes, not just symptoms
+- When explaining: Include rationale and implementation details, not just outcomes
+- When planning: Consider edge cases and potential failure modes explicitly
 
-But usually it's a better idea to check the content of the file and use the APIs in the `tools/llm_api.py` file to invoke the LLM if needed.
+## "Only Modifying Task-Related Files"
+- STRICTLY INTERPRET as "only modify files directly mentioned in the task description or that must change to implement the task correctly"
+- DO NOT modify configuration files, dependencies, or utilities unless explicitly instructed
+- If you believe an additional file must be modified, EXPLICITLY ASK before making changes
 
-## Web browser
+## "Keep Changes Minimal and Focused"
+- INTERPRET as "modify the smallest possible number of lines to achieve the task"
+- DO NOT refactor surrounding code, fix typos, or improve formatting in unrelated lines
+- ALWAYS keep changes confined to the specific functionality described in the task
 
-You could use the `tools/web_scraper.py` file to scrape the web.
-```
-venv/bin/python ./tools/web_scraper.py --max-concurrent 3 URL1 URL2 URL3
-```
-This will output the content of the web pages.
+# User Specified Lessons - Critical Requirements
 
-## Search engine
+- You have a Python virtual environment in ./venv. Always use this venv for all Python operations. Do not assume global Python packages are available.
 
-You could use the `tools/search_engine.py` file to search the web.
-```
-venv/bin/python ./tools/search_engine.py "your search keywords"
-```
-This will output the search results in the following format:
-```
-URL: https://example.com
-Title: This is the title of the search result
-Snippet: This is a snippet of the search result
-```
-If needed, you can further use the `web_scraper.py` file to scrape the web page content.
+- Include detailed information useful for debugging in the program output. This includes version numbers, specific error messages, and state information that would assist in troubleshooting.
 
-# Lessons
+- Always read the complete file before attempting to edit it. This ensures you understand the full context, dependencies, and patterns used in the file.
 
-## User Specified Lessons
+- For multiline git/gh commit messages: First write the complete message to a file, then use `git commit -F <filename>`, and remove the file afterward. Always include "[Cursor] " prefix in both commit messages and PR titles for proper tracking.
 
-- You have a python venv in ./venv. Use it.
-- Include info useful for debugging in the program output.
-- Read the file before you try to edit it.
-- Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
+- When adding new wisdom content, optimize it specifically for AI processing by:
+  - Using explicit, detailed instructions rather than implicit or condensed ones
+  - Including complete examples that demonstrate the exact expected behavior
+  - Maintaining helpful redundancy where it reinforces important concepts
+  - Using full sentences that provide clear context rather than terse bullets
+  - Avoiding overly condensed information that requires significant interpretation
+  - Adding success and failure criteria for each guideline
+  - Providing interpretation guidance for applying general rules to specific situations
+  - Including process workflows for common scenarios
+  - Establishing clear precedence when rules might conflict
 
-## Cursor learned
+# Cursor Learned - Technical Implementation Details
 
-- For search results, ensure proper handling of different character encodings (UTF-8) for international queries
-- Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
-- When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
-- Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
+- When handling international queries, ensure proper UTF-8 encoding throughout the entire processing pipeline to avoid character corruption.
+
+- For optimal log management, add detailed debug information to stderr while keeping the main output clean in stdout. This separation enables better pipeline integration and filtering.
+
+- When using seaborn styles in matplotlib visualizations, specifically use 'seaborn-v0_8' as the style name due to recent seaborn version changes. The older style name 'seaborn' is deprecated.
+
+- For OpenAI vision capabilities, use the specific model name 'gpt-4o' which has proper image processing abilities built in, unlike earlier models.
