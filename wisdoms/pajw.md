@@ -70,6 +70,21 @@
       arg2: value2
     )
     ```
+  - Maximum line length is 100 characters (configured in learnamp-style-guides)
+  - Line length exceptions are allowed for:
+    - Comments starting with #
+    - Test descriptions (it/describe blocks)
+  - In test files:
+    - Add empty line before assertion methods (Minitest/EmptyLineBeforeAssertionMethods)
+    - Align method call arguments when spanning multiple lines (Layout/ArgumentAlignment)
+    - Align hash keys when spanning multiple lines (Layout/HashAlignment)
+    - Align multiline method calls with the first method call (Layout/MultilineMethodCallIndentation)
+    - Example of proper alignment:
+      ```ruby
+      mock_client.expects(:create_job)
+                .with(region: Transcode::REGION)
+                .returns(mock_response)
+      ```
 - For JavaScript/TypeScript:
   - Run Prettier before ESLint
   - Fix ESLint warnings incrementally
